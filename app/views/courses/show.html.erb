@@ -1,7 +1,20 @@
 <br />
 
 <div class="booyah-box col-10 offset-1">
-  <h1><%= @courses.title %></h1>
+  <h1 class="text-center"><%= @courses.title %></h1>
+  <br />
+
+  <div class="text-center">
+    <%= link_to 'Add a new section...', new_instructor_course_section_path(@courses), class: 'btn btn-primary btn-lg' %>
+  </div>
+
+  <ul>
+    <% @courses.sections.each do |section| %>
+      <li>
+        <%= section.title %>
+      </li>
+    <% end %>
+  </ul>
   <br />
   <div class="row">
     <div class="col-sm-4 col-12 text-center">
@@ -9,11 +22,12 @@
         <%= number_to_currency @courses.cost %>
       </span>
     </div>
-
-    <% if current_user && current_user == @course.user %>
+    <%= link_to 'Preview As Student...', course_path(@courses), class: 'btn btn-warning float-right' %>
+    <br class="clr" />
+    <% if current_user && current_user == @courses.user %>
       <br />
       <br />
-      <%= link_to 'Administer', instructor_course_path(@course), class: 'btn btn-danger btn-large' %>
+      <%= link_to 'Administer', instructor_course_path(@courses), class: 'btn btn-danger btn-large' %>
     <% end %>
 
     <div class="col-sm-8 col-12">
