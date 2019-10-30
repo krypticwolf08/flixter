@@ -3,9 +3,6 @@ class Instructor::LessonsController < ApplicationController
   before_action :require_authorized_for_current_section
 
   def new
-    @lesson = Lesson.new
-  end
-
     if current_section.course.user != current_user
       return render plain: 'Unauthorized', status: :unauthorized
     end
@@ -24,7 +21,7 @@ class Instructor::LessonsController < ApplicationController
       return render plain: 'Unauthorized', status: :unauthorized
     end
   end
-  
+
   helper_method :current_section
   def current_section
     @current_section ||= Section.find(params[:section_id])
